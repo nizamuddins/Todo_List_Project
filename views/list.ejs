@@ -1,0 +1,55 @@
+<%- include('partials/header') -%>
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand text-capitalize fw-bold ms-3" href="#"><%= user %></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ms-auto me-5">
+          <li class="nav-item dropdown mx-2">
+            <a class="nav-link dropdown-toggle fw-semibold text-black" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+             Daily Activities
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/home">Home</a></li>
+              <li><a class="dropdown-item" href="/work">Work</a></li>
+              <li><a class="dropdown-item" href="/meeting">Meeting</a></li>
+              <li><a class="dropdown-item" href="/topurchase">To Purchase</a></li>
+              <li><a class="dropdown-item" href="/tostudy">To Study</a></li>
+
+            </ul>
+          </li>
+          <li  class="nav-item mx-2 log">
+            <a  style="background-color:rgb(25, 24, 24);border-radius: 13px;padding:.3rem .5rem;margin-top: .3rem;" class="nav-link active fw-semibold text-white" type="button" aria-current="page" href="/logout">Logout</a>
+          </li>
+          <li  class="nav-item mx-1 delete">
+            <a  style="background-color:rgb(182, 19, 19);border-radius: 13px;padding:.3rem .5rem;margin-top: .3rem;" class="nav-link active fw-semibold text-white" type="button" aria-current="page" href="/delete">Delete Account</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<div class="box">
+    <h1 class="head"><%= days %></h1>
+    <div class="listBox">
+        <% for(i=0;i<newItem.length;i++){ %>
+
+            <ul class="ul">
+                <form action="/delete" method="post">
+                    <input type="checkbox" name="checkbox" value=<%= newItem[i]._id %> onChange="this.form.submit()" id="">
+                    <p class="list">
+                        <%= newItem[i].text %>
+                    </p>
+                </form>
+
+            </ul>
+        <% } %>
+
+    </div>
+    <form action="/list" method="post" class="form">
+        <input type="text" name="text" id="" placeholder="Next item" autocomplete="off">
+        <button type="submit" class="submit" name="button" value=<%= days %>>+</button>
+    </form>
+</div>
+<%- include('partials/footer') -%>
