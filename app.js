@@ -17,7 +17,6 @@ const {mongo} = require("mongoose");
 const { url } = require("inspector");
 
 const app = express();
-
 var items;
 var defaultItems = [
     {
@@ -147,7 +146,6 @@ app.post("/login", async (req, res) => {
             if (find.username === username) {
                 req.login(user, (err) => {
                     if (err) {
-                        console.log(err)
                         res.redirect("/");
                     } else {
 
@@ -193,10 +191,8 @@ app.get('/' + date.day(), async (req, res) => {
         find.shift();
 
         let arr2 = find.filter((a, i) => {
-            return (a.name === undefined || a.name == date.day())
-
+            return (a.name == date.day())
         })
-
         if (arr2.length !== 0) {
             items = arr2
         } else {
@@ -204,11 +200,9 @@ app.get('/' + date.day(), async (req, res) => {
                 return (a.name === undefined)
 
             })
-            console.log(arr)
             arr.length === 0
                 ? items = []
                 : items = find
-            console.log(items)
         }
 
         if (items.length === 0) {
@@ -250,6 +244,7 @@ app.get('/' + date.day(), async (req, res) => {
         res.redirect("/")
     }
 })
+
 app.post('/list', async (req, res) => {
     if (req.isAuthenticated()) {
         let user1 = req.user.username;
@@ -266,7 +261,6 @@ app.post('/list', async (req, res) => {
                 let result = await listItems.save();
                 if(btn == "Home" || "Work"||"ToPurchase"||'ToStudy'||"Meeting"){
                     let btn2 = btn.toLowerCase();
-                    console.log(btn2)
                 res.redirect('/' + btn2);
 
                 }else{
@@ -405,7 +399,6 @@ app.post("/delete", async (req, res) => {
 app.get("/logout",nocache,(req,res)=>{
     req.logout((err)=>{
           if(err){
-              console.log(err)
           }
     res.redirect("/");
 });
@@ -468,5 +461,5 @@ app.get("/:name", async (req, res) => {
 
 
 app.listen(port, () => {
-    console.log("server is started");
+console.log("Server is started")
 })
